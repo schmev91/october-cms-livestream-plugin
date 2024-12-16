@@ -137,7 +137,10 @@ class Livestreams extends Controller
                 ->where("status", "active")
                 ->firstOrFail();
         } catch (\Throwable $th) {
-            return $this->sendError("Livestream không tồn tại.");
+            return response()->json([
+                'code'    => 'livestream_not_found',
+                'message' => 'Livestream Not Found.',
+             ], 404);
         }
 
         // Lấy agora token từ record
